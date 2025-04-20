@@ -1,0 +1,48 @@
+# name: "quorix/actions"
+
+# on: push
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-node@v1
+#         with:
+#           node-version: 12
+#           path: |
+#             node_modules
+#             key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+
+
+#       - name: Install Dependencies
+#         run : npm install
+
+#       - name: Install Ci
+#         run: npm ci
+
+#       - name: Build
+#         run: npm run build
+#   publish-gpr:
+#     needs: build
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v2
+#       - uses: actions/setup-node@v1
+#         with:
+#           node-version: 12
+#           registry-url: https://registry.npmjs.org/
+
+#       - name: Install Dependencies 
+#         run : npm install
+
+#       - name: Install CI
+#         run: npm ci
+
+#       - name: Build
+#         run: npm run build
+
+#       - name: Publish to npm
+#         run: npm publish
+#         env:
+#           NODE_AUTH_TOKEN: ${{secrets.NPM_PACKAGE_TOKEN}}
