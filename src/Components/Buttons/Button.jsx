@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import React, { useCallback, useMemo } from "react";
-import RippleEffect from "./RippleEffect";
-import "./RippleEffect.css";
+import RippleEffect from "../../Effects/Ripple/RippleEffect";
 
 // Design tokens
 const COLORS = {

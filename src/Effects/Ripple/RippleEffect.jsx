@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import React, { useEffect, useRef, useState } from "react";
+import "./RippleEffect.module.css";
 
 const RippleEffect = ({
   color = "rgba(33, 33, 41, 0.7)",
