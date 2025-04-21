@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React, { useCallback, useMemo } from "react";
-import RippleEffect from "../../Effects/Ripple/RippleEffect";
-import "../../Effects/Ripple/RippleEffect.module.css";
+import RippleEffect from "./RippleEffect";
+import "./RippleEffect.css";
 
 // Design tokens
 const COLORS = {
@@ -58,6 +58,25 @@ const Button = ({
   ariaLabel,
   rippleColor = "rgba(255, 255, 255, 0.7)",
 }) => {
+  // Function to calculate hover color for custom hex
+  const calculateHoverColor = (hexColor) => {
+    // Remove the # if present
+    const hex = hexColor.replace("#", "");
+    // Convert to RGB
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
+    // Darken by 10%
+    const darkenFactor = 0.9;
+    const newR = Math.floor(r * darkenFactor);
+    const newG = Math.floor(g * darkenFactor);
+    const newB = Math.floor(b * darkenFactor);
+    // Convert back to hex
+    return `#${newR.toString(16).padStart(2, "0")}${newG
+      .toString(16)
+      .padStart(2, "0")}${newB.toString(16).padStart(2, "0")}`;
+  };
+
   // Memoize styles to prevent recalculation on every render
   const buttonStyles = useMemo(() => {
     const baseStyles = {
@@ -93,7 +112,12 @@ const Button = ({
       overflow: "hidden",
     };
 
-    const colorStyles = COLORS[color] || COLORS.primary;
+    // Determine if using predefined color or custom hex
+    const colorStyles = COLORS[color] || {
+      main: color,
+      hover: calculateHoverColor(color),
+      text: "#ffffff",
+    };
 
     const variants = {
       contained: {
@@ -187,13 +211,7 @@ Button.propTypes = {
   id: PropTypes.string,
   onClick: PropTypes.func,
   size: PropTypes.oneOf(["sm", "md", "lg"]),
-  color: PropTypes.oneOf([
-    "primary",
-    "secondary",
-    "success",
-    "error",
-    "warning",
-  ]),
+  color: PropTypes.string, // Updated to accept any string (predefined or hex)
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   disabled: PropTypes.bool,
